@@ -74,10 +74,14 @@ class WsgiTransport(Transport):
         """
         try:
             response = MakeResponse(response=response)
+            print("--------------------------------:")
+            print("HTTP make_response:", response)
             print("HTTP STATUS:", response.http_status)
+            print("HTTP HEADERS:", response.headers)
+            print("HTTP BODY:", response.body)
             self.send_header(response.http_status, response.headers)
-            body = response.body
-            yield body
+            body = response.body if isinstance(response.body, list) else [response.body]
+            return body
         except Exception as ae:
             print(ae)
             print(traceback.format_exc())
@@ -90,7 +94,7 @@ class WsgiTransport(Transport):
         :param headers: Заголовки
         :return:
         """
-        return self.start_response(http_status, headers)
+        self.start_response(http_status, headers)
 
     def make_request(self, environ):
         """
@@ -457,6 +461,8 @@ class WsgiServer:
             reason = err.reason if hasattr(err, 'reason') else str(err)
             body = err.body if hasattr(err, 'body') else str(err)
         except Exception as e:
+            print('-----------------------------4')
+            print("Error while handling error:", e)
             status = 500
             reason = b'Internal Server Error'
             body = b'Internal Server Error'
