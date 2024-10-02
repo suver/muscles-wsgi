@@ -8,7 +8,7 @@ name = "muscles-wsgi"
 version = "0.0.3"
 description = ""
 authors = ["Denis B. <denis@butko.info>"]
-packages = [{include = "muscles", from = "src", to = "muscles.wsgi"}]
+packages = [{include = "muscles", from = "src"}]
 
 
 [tool.poetry.dependencies]
