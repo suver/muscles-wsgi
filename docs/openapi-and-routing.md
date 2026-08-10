@@ -69,6 +69,14 @@ def show(request, id):
 The generated operation is emitted as `get`, includes `tags`, `security` and
 common responses, and registers the bearer scheme in OpenAPI components.
 
+## OpenAPI Validation
+
+Generated documents target OpenAPI 3.0.x by default and also support 3.1.x.
+Responses, request bodies, path parameters and model schemas are emitted as
+standard OpenAPI objects. The package's development dependencies include
+`openapi-spec-validator>=0.7,<0.8`; validate a generated document after
+JSON serialization to exercise the same shape served by `/openapi.json`.
+
 Endpoint metadata can override inherited auth:
 
 ```python
